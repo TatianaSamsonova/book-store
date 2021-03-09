@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserFacade {
     List<UserDto> getAllUsers();
     void createUser(UserDto userDto);
+    UserDto deleteUser(long id);
 }

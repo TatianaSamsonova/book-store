@@ -7,6 +7,7 @@ import sam.ecommerce.bookstore.model.User;
 import sam.ecommerce.bookstore.repository.UserRepository;
 import sam.ecommerce.bookstore.service.UserService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -28,5 +29,12 @@ public class DefaultUserService implements UserService {
             throw new AlreadyExistException("User already exists. User ID: " + user.getId());
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public User deleteUser(long id) {
+        User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        userRepository.deleteById(id);
+        return user;
     }
 }

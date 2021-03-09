@@ -33,4 +33,9 @@ public class DefaultUserFacade implements UserFacade {
     public void createUser(UserDto userDto) {
         userService.createUser(userDtoConverter.convert(userDto));
     }
+
+    @Override
+    public UserDto deleteUser(long id) {
+        return userConverter.convert(userService.deleteUser(id));
+    }
 }

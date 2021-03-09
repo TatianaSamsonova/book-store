@@ -11,7 +11,9 @@ import sam.ecommerce.bookstore.exception.AlreadyExistException;
 import sam.ecommerce.bookstore.model.User;
 import sam.ecommerce.bookstore.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -23,6 +25,7 @@ import static org.mockito.Mockito.when;
 @ActiveProfiles("test")
 @SpringBootTest
 public class UserServiceTest {
+    private static final long USER_ID = 1;
 
     @Autowired
     private UserService userService;
@@ -60,4 +63,28 @@ public class UserServiceTest {
         assertThatThrownBy(() -> userService.createUser(null))
                 .isInstanceOf(NullPointerException.class);
     }
+
+    @Test
+    public void shouldReturnDeletedUser_whenUserExistsInDB(){
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.ofNullable(user));
+
+        assertThat(userService.deleteUser(USER_ID)).isEqualTo(user);
+    }
+
+    @Test
+    public void shouldDeleteUser_whenUserExistsInDB(){
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.ofNullable(user));
+
+        userService.deleteUser(USER_ID);
+        verify(userRepository).deleteById(USER_ID);
+    }
+
+    @Test
+    public void shouldThrowEntityNotFoundException_whenUserNotExistsInDB(){
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userService.deleteUser(USER_ID))
+                .isInstanceOf(EntityNotFoundException.class);
+    }
+
 }
