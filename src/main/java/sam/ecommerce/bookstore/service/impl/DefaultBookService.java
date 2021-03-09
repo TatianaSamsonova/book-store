@@ -17,4 +17,10 @@ public class DefaultBookService implements BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    @Override
+    public void createBook(Book book) {
+        bookRepository.save(book);
+    }
+
 }

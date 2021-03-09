@@ -22,7 +22,7 @@ public class Book {
     private String price;
 
     @Column(length = 1000)
-    private byte[] picture;
+    private byte[] image;
 
     public long getId() {
         return id;
@@ -56,11 +56,11 @@ public class Book {
         this.price = price;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setPicture(byte[] picByte) {
-        this.picture = picByte;
+    public void setImage(byte[] picByte) {
+        this.image = picByte;
     }
 }
