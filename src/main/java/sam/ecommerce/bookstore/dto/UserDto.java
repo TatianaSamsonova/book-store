@@ -1,9 +1,19 @@
 package sam.ecommerce.bookstore.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+
 public class UserDto {
     private long id;
+    @NotEmpty(message = "Cannot be empty")
+    @NotNull(message = "Name cannot be null")
     private String name;
+    @NotEmpty(message = "Cannot be empty")
+    @NotNull(message = "Password cannot be null")
     private String password;
+    @NotEmpty(message = "Cannot be empty")
+    @NotNull(message = "Role cannot be null")
     private String role;
 
     public long getId() {

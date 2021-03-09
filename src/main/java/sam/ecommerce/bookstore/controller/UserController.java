@@ -11,6 +11,7 @@ import sam.ecommerce.bookstore.dto.UserDto;
 import sam.ecommerce.bookstore.facade.UserFacade;
 
 import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public void createUser(@RequestBody UserDto userDto){
+    public void createUser(@RequestBody @Valid UserDto userDto){
         userFacade.createUser(userDto);
     }
 }
