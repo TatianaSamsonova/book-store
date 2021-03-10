@@ -32,4 +32,9 @@ public class DefaultBookFacade implements BookFacade {
     public void createBook(BookDto bookDto) {
         bookService.createBook(bookDtoConverter.convert(bookDto));
     }
+
+    @Override
+    public BookDto deleteBook(long id) {
+        return bookConverter.convert(bookService.deleteBook(id));
+    }
 }

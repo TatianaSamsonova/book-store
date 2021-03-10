@@ -6,6 +6,7 @@ import sam.ecommerce.bookstore.model.Book;
 import sam.ecommerce.bookstore.repository.BookRepository;
 import sam.ecommerce.bookstore.service.BookService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -21,6 +22,13 @@ public class DefaultBookService implements BookService {
     @Override
     public void createBook(Book book) {
         bookRepository.save(book);
+    }
+
+    @Override
+    public Book deleteBook(long id) {
+        Book book = bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        bookRepository.deleteById(id);
+        return book;
     }
 
 }
