@@ -9,6 +9,8 @@ import sam.ecommerce.bookstore.facade.ImageFacade;
 import sam.ecommerce.bookstore.model.Image;
 import sam.ecommerce.bookstore.service.ImageService;
 
+import java.util.UUID;
+
 @Component
 public class DefaultImageFacade implements ImageFacade {
     @Autowired
@@ -17,14 +19,15 @@ public class DefaultImageFacade implements ImageFacade {
     private ImageService imageService;
 
     @Override
-    public void uploadImage(MultipartFile file) throws ImageUploadException {
-        Image image = imageConverter.convert(file);
+    public UUID uploadImage(MultipartFile multipartFile) throws ImageUploadException {
         try{
+            Image image = imageConverter.convert(multipartFile);
             if (image.getBytes().length != 0){
-                imageService.uploadImage(image);
+                return imageService.uploadImage(image);
             }
-        } catch (NullPointerException e){
+        } catch (Exception e){
             throw new ImageUploadException("This image cannot be uploaded");
         }
+        return null;
     }
 }

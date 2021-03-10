@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sam.ecommerce.bookstore.model.Image;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Component
 public class ImageConverter implements Converter<MultipartFile, Image> {
@@ -19,6 +20,7 @@ public class ImageConverter implements Converter<MultipartFile, Image> {
 
         image.setName(multipartFile.getOriginalFilename());
         image.setSize(multipartFile.getSize());
+        image.setCode(UUID.randomUUID());
 
         try {
             image.setBytes(multipartFile.getBytes());

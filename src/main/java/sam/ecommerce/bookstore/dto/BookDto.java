@@ -1,6 +1,7 @@
 package sam.ecommerce.bookstore.dto;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.UUID;
 
 public class BookDto {
     private long id;
@@ -9,7 +10,7 @@ public class BookDto {
     @NotEmpty(message = "Book author cannot be empty")
     private String author;
     private String price;
-    private byte[] picByte;
+    private UUID imageCode;
 
     public long getId() {
         return id;
@@ -43,11 +44,11 @@ public class BookDto {
         this.price = price;
     }
 
-    public byte[] getPicByte() {
-        return picByte;
+    public UUID getImageCode() {
+        return imageCode;
     }
 
-    public void setPicByte(byte[] picByte) {
-        this.picByte = picByte;
+    public void setImageCode(UUID imageCode) {
+        this.imageCode = imageCode;
     }
 }
