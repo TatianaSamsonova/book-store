@@ -8,5 +8,6 @@ public interface BookFacade {
     List<BookDto> getAllBooks();
     void createBook(BookDto bookDto);
     BookDto deleteBook(long id);
+    BookDto updateBook(BookDto bookDto);
 }
 
