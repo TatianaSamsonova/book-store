@@ -19,11 +19,10 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public Image getImage() {
-        Image image = imageRepository.findAll()
+        return imageRepository.findAll()
                 .stream()
+                .filter(image -> image.getBook() == null)
                 .findFirst()
-                .orElseThrow(() -> new ImageUploadException("Image repository is empty"));
-        imageRepository.deleteById(image.getId());
-        return image;
+                .orElseThrow(() -> new ImageUploadException("There is no free image"));
     }
 }

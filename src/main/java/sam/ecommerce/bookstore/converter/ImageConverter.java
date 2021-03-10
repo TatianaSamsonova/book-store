@@ -17,6 +17,9 @@ public class ImageConverter implements Converter<MultipartFile, Image> {
     public Image convert(MultipartFile multipartFile) {
         Image image = new Image();
 
+        image.setName(multipartFile.getOriginalFilename());
+        image.setSize(multipartFile.getSize());
+
         try {
             image.setBytes(multipartFile.getBytes());
         } catch (IOException e) {

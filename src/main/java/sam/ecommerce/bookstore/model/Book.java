@@ -1,10 +1,14 @@
 package sam.ecommerce.bookstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -21,8 +25,9 @@ public class Book {
     @Column
     private String price;
 
-    @Column(length = 1000)
-    private byte[] image;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
     public long getId() {
         return id;
@@ -56,11 +61,11 @@ public class Book {
         this.price = price;
     }
 
-    public byte[] getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(byte[] picByte) {
-        this.image = picByte;
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

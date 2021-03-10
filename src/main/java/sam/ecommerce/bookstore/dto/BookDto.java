@@ -1,8 +1,12 @@
 package sam.ecommerce.bookstore.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class BookDto {
     private long id;
+    @NotEmpty(message = "Book name cannot be empty")
     private String name;
+    @NotEmpty(message = "Book author cannot be empty")
     private String author;
     private String price;
     private byte[] picByte;

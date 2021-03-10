@@ -6,10 +6,10 @@ import javax.validation.constraints.NotNull;
 
 public class UserDto {
     private long id;
-    @NotEmpty(message = "Cannot be empty")
+    @NotEmpty(message = "Name cannot be empty")
     @NotNull(message = "Name cannot be null")
     private String name;
-    @NotEmpty(message = "Cannot be empty")
+    @NotEmpty(message = "Password cannot be empty")
     @NotNull(message = "Password cannot be null")
     private String password;
     @NotEmpty(message = "Cannot be empty")
