@@ -39,3 +39,13 @@ delete user by id: DELETE http://localhost:8443/api/users/{id}
 update user info:  PUT    http://localhost:8443/api/users/update
 
 
+CUSTOM ERROR RESPONSE
+{
+    "role": "user",
+    "errors": [
+        {
+            "fieldName": "error field name",
+            "message": "error message"
+        }
+    ]
+}
