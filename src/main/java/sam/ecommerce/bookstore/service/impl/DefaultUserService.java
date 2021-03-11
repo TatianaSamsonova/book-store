@@ -27,7 +27,7 @@ public class DefaultUserService implements UserService {
             throw new NullPointerException("User to save cannot be null");
         }
         if (userRepository.existsById(user.getId())){
-            throw new AlreadyExistException("User already exists. User ID: " + user.getId());
+            throw new AlreadyExistException("This User already exists", "User ID " + user.getId());
         }
         userRepository.save(user);
     }

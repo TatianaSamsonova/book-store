@@ -26,7 +26,7 @@ public class DefaultImageFacade implements ImageFacade {
                 return imageService.uploadImage(image);
             }
         } catch (Exception e){
-            throw new ImageUploadException("This image cannot be uploaded");
+            throw new ImageUploadException("This image cannot be uploaded", "Image");
         }
         return null;
     }
