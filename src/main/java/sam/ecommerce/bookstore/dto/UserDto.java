@@ -1,19 +1,10 @@
 package sam.ecommerce.bookstore.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-
 public class UserDto {
     private long id;
-    @NotEmpty(message = "Name cannot be empty")
-    @NotNull(message = "Name cannot be null")
-    private String name;
-    @NotEmpty(message = "Password cannot be empty")
-    @NotNull(message = "Password cannot be null")
-    private String password;
-    @NotEmpty(message = "Cannot be empty")
-    @NotNull(message = "Role cannot be null")
+    private String firstName;
+    private String lastName;
+    private String email;
     private String role;
 
     public long getId() {
@@ -24,20 +15,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getRole() {
@@ -46,5 +29,21 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

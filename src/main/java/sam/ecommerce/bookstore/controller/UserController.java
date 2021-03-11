@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sam.ecommerce.bookstore.dto.UserUpdateInfoDto;
 import sam.ecommerce.bookstore.dto.UserDto;
+import sam.ecommerce.bookstore.dto.UserRegistrationDto;
 import sam.ecommerce.bookstore.facade.UserFacade;
 
 import java.util.List;
@@ -33,9 +35,9 @@ public class UserController {
         return userFacade.getUser(id);
     }
 
-    @PostMapping("/add")
-    public void createUser(@RequestBody @Valid UserDto userDto){
-        userFacade.createUser(userDto);
+    @PostMapping("/register")
+    public  UserDto registerNewUser(@RequestBody @Valid UserRegistrationDto userRegistrationDto){
+       return userFacade.registerNewUser(userRegistrationDto);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +45,8 @@ public class UserController {
         return userFacade.deleteUser(id);
     }
 
-    @PutMapping("/update")
-    public UserDto updateUserInfo(@RequestBody @Valid UserDto userDto){
-        return userFacade.updateUserInfo(userDto);
+    @PutMapping("/update/{id}")
+    public UserDto updateUserInfo(@RequestBody @Valid UserUpdateInfoDto userUpdateInfoDto, @PathVariable long id){
+        return userFacade.updateUserInfo(userUpdateInfoDto, id);
     }
 }

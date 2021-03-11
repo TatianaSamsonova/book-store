@@ -2,7 +2,6 @@ package sam.ecommerce.bookstore.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sam.ecommerce.bookstore.dto.UserDto;
 import sam.ecommerce.bookstore.exception.AlreadyExistException;
 import sam.ecommerce.bookstore.exception.InvalidDataException;
 import sam.ecommerce.bookstore.model.User;
@@ -23,14 +22,15 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
+    public User registerNewUser(User user) {
         if (user == null){
             throw new InvalidDataException("User to save cannot be null", "User");
         }
-        if (userRepository.existsById(user.getId())){
-            throw new AlreadyExistException("This User already exists", "User ID " + user.getId());
+        String email = user.getEmail();
+        if (isEmailExist(email)){
+            throw new AlreadyExistException("Account with this email has been already registered", "Email " + email);
         }
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -46,21 +46,27 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public User updateUserInfo(UserDto userDto) {
-        if (userDto.getName() == null){
-            throw new InvalidDataException("User name cannot be null", "User name");
+    public User updateUserInfo(User userToUpdateInfo, long id) {
+        User user = getUserFromDB(id);
+        String emailToUpdate = userToUpdateInfo.getEmail();
+
+        if (!user.getEmail().equals(emailToUpdate) && isEmailExist(emailToUpdate)) {
+            throw new AlreadyExistException("This email already exists in the DB: " + emailToUpdate, "User email");
         }
-        if (userDto.getPassword() == null){
-            throw new InvalidDataException("User password cannot be null", "User password");
-        }
-        User user = getUserFromDB(userDto.getId());
-        User updatedUser = updateUserInfoFields(user, userDto);
+
+        User updatedUser = updateUserInfoFields(user, userToUpdateInfo);
         return userRepository.save(updatedUser);
     }
 
-    private User updateUserInfoFields(User user, UserDto userDto) {
-        user.setName(userDto.getName());
-        user.setPassword(userDto.getPassword());
+    private boolean isEmailExist(final String email) {
+        return userRepository.findByEmail(email) != null;
+    }
+
+    private User updateUserInfoFields(User user, User userToUpdateInfo) {
+        user.setFirstName(userToUpdateInfo.getFirstName());
+        user.setLastName(userToUpdateInfo.getLastName());
+        user.setEmail(userToUpdateInfo.getEmail());
+        user.setPassword(userToUpdateInfo.getPassword());
         return user;
     }
 

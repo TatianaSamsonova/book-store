@@ -2,10 +2,14 @@ package sam.ecommerce.bookstore.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import sam.ecommerce.bookstore.converter.UserUpdateInfoConverter;
 import sam.ecommerce.bookstore.converter.UserConverter;
-import sam.ecommerce.bookstore.converter.UserDtoConverter;
+import sam.ecommerce.bookstore.converter.UserRegistrationDtoConverter;
+import sam.ecommerce.bookstore.dto.UserUpdateInfoDto;
 import sam.ecommerce.bookstore.dto.UserDto;
+import sam.ecommerce.bookstore.dto.UserRegistrationDto;
 import sam.ecommerce.bookstore.facade.UserFacade;
+import sam.ecommerce.bookstore.model.User;
 import sam.ecommerce.bookstore.service.UserService;
 
 
@@ -19,7 +23,9 @@ public class DefaultUserFacade implements UserFacade {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserDtoConverter userDtoConverter;
+    private UserRegistrationDtoConverter userRegistrationDtoConverter;
+    @Autowired
+    private UserUpdateInfoConverter userUpdateInfoConverter;
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -27,11 +33,6 @@ public class DefaultUserFacade implements UserFacade {
                 .stream()
                 .map(userConverter::convert)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void createUser(UserDto userDto) {
-        userService.createUser(userDtoConverter.convert(userDto));
     }
 
     @Override
@@ -45,7 +46,15 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public UserDto updateUserInfo(UserDto userDto) {
-        return userConverter.convert(userService.updateUserInfo(userDto));
+    public UserDto updateUserInfo(UserUpdateInfoDto userUpdateInfoDto, long id) {
+        User userToUpdate = userUpdateInfoConverter.convert(userUpdateInfoDto);
+        return userConverter.convert(userService.updateUserInfo(userToUpdate, id));
+    }
+
+    @Override
+    public UserDto registerNewUser(UserRegistrationDto userRegistrationDto) {
+        User userToRegister = userRegistrationDtoConverter.convert(userRegistrationDto);
+        User registeredUser = userService.registerNewUser(userToRegister);
+        return userConverter.convert(registeredUser);
     }
 }

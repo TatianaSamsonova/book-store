@@ -15,18 +15,21 @@ public class DefaultErrorService implements ErrorService {
     private static final String MESSAGE = "message";
 
     @Override
-    public ErrorDto buildErrorDto(String role, String fieldName, String message){
+    public ErrorDto buildErrorDto(String role, Map<String, String> errorData){
         ErrorDto errorDto = new ErrorDto();
         errorDto.setRole(role);
         List<Map<String,String>> errorList = new ArrayList<>();
-        errorList.add(buildErrorItem(fieldName, message));
+
+        errorData.forEach((fieldName, message) ->{
+            errorList.add(buildErrorItem(fieldName, message));
+        });
+
         errorDto.setErrors(errorList);
 
         return errorDto;
     }
 
-    @Override
-    public Map<String, String> buildErrorItem(String fieldName, String message){
+    private Map<String, String> buildErrorItem(String fieldName, String message){
         Map<String, String> errorAttributes = new HashMap<>();
 
         errorAttributes.put(FIELD_NAME, fieldName);
