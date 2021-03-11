@@ -21,6 +21,6 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public Image getImage(UUID imageCode) {
-        return imageRepository.findByCode(imageCode).orElseThrow(EntityNotFoundException::new);
+        return imageRepository.findByCode(imageCode).orElseThrow(() -> new EntityNotFoundException(String.format("Image with UUID %s doesn't exist", imageCode)));
     }
 }

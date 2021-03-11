@@ -52,6 +52,6 @@ public class DefaultBookService implements BookService {
     }
 
     private Book getBookFromDB(long id){
-        return bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Book with ID %s doesn't exist", id)));
     }
 }

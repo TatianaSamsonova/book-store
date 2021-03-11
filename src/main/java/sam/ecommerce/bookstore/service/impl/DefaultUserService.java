@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sam.ecommerce.bookstore.dto.UserDto;
 import sam.ecommerce.bookstore.exception.AlreadyExistException;
+import sam.ecommerce.bookstore.exception.InvalidDataException;
 import sam.ecommerce.bookstore.model.User;
 import sam.ecommerce.bookstore.repository.UserRepository;
 import sam.ecommerce.bookstore.service.UserService;
@@ -24,7 +25,7 @@ public class DefaultUserService implements UserService {
     @Override
     public void createUser(User user) {
         if (user == null){
-            throw new NullPointerException("User to save cannot be null");
+            throw new InvalidDataException("User to save cannot be null", "User");
         }
         if (userRepository.existsById(user.getId())){
             throw new AlreadyExistException("This User already exists", "User ID " + user.getId());
@@ -46,8 +47,11 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User updateUserInfo(UserDto userDto) {
-        if (userDto.getName() == null || userDto.getPassword() == null){
-            throw new NullPointerException("User info cannot be null");
+        if (userDto.getName() == null){
+            throw new InvalidDataException("User name cannot be null", "User name");
+        }
+        if (userDto.getPassword() == null){
+            throw new InvalidDataException("User password cannot be null", "User password");
         }
         User user = getUserFromDB(userDto.getId());
         User updatedUser = updateUserInfoFields(user, userDto);
@@ -61,6 +65,6 @@ public class DefaultUserService implements UserService {
     }
 
     private User getUserFromDB(long id){
-       return  userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+       return  userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %s doesn't exist", id)));
     }
 }
