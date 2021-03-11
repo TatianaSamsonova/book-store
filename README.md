@@ -33,11 +33,11 @@ get user by id:    GET    http://localhost:8443/api/users/{id}
 
 get all users:     GET    http://localhost:8443/api/users 
 
-create user:       POST   http://localhost:8443/api/users/add
+register new user: POST   http://localhost:8443/api/users/register
 
 delete user by id: DELETE http://localhost:8443/api/users/{id}
 
-update user info:  PUT    http://localhost:8443/api/users/update
+update user info:  PUT    http://localhost:8443/api/users/update/{id}
 
 
 CUSTOM ERROR RESPONSE
