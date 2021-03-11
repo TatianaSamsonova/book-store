@@ -29,6 +29,11 @@ public class BookController {
         return bookFacade.getAllBooks();
     }
 
+    @GetMapping("/{id}")
+    public BookDto getBook(@PathVariable long id){
+        return bookFacade.getBook(id);
+    }
+
     @PostMapping("/add")
     public void createBook(@RequestBody @Valid BookDto bookDto) {
        bookFacade.createBook(bookDto);

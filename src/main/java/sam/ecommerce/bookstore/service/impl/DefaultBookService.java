@@ -39,6 +39,11 @@ public class DefaultBookService implements BookService {
         return bookRepository.save(updatedBook);
     }
 
+    @Override
+    public Book getBook(long id) {
+        return getBookFromDB(id);
+    }
+
     private Book updateBookFields(Book book, BookDto bookDto){
         book.setName(bookDto.getName());
         book.setAuthor(bookDto.getAuthor());

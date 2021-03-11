@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,11 @@ public class UserController {
         return userFacade.getAllUsers();
     }
 
+    @GetMapping("/{id}")
+    public UserDto getUser(@PathVariable long id){
+        return userFacade.getUser(id);
+    }
+
     @PostMapping("/add")
     public void createUser(@RequestBody @Valid UserDto userDto){
         userFacade.createUser(userDto);
@@ -35,5 +41,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public UserDto deleteUser(@PathVariable long id){
         return userFacade.deleteUser(id);
+    }
+
+    @PutMapping("/update")
+    public UserDto updateUserInfo(@RequestBody @Valid UserDto userDto){
+        return userFacade.updateUserInfo(userDto);
     }
 }

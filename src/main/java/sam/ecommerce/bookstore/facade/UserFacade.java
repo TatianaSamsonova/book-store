@@ -8,4 +8,6 @@ public interface UserFacade {
     List<UserDto> getAllUsers();
     void createUser(UserDto userDto);
     UserDto deleteUser(long id);
+    UserDto getUser(long id);
+    UserDto updateUserInfo(UserDto userDto);
 }
