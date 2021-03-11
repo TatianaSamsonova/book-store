@@ -2,11 +2,12 @@
 
 REST API for E-commerce website for buying books
 
-Technologies
+Technology Stack
 - Spring Boot
 - Spring Security
 - Spring Data
 - JUnit
+- Java 11
 
 Links
 
