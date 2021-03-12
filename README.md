@@ -6,6 +6,7 @@ Technology Stack
 - Spring Boot
 - Spring Security
 - Spring Data
+- Swagger 2
 - JUnit
 - Java 11
 
@@ -38,15 +39,3 @@ register new user: POST   http://localhost:8443/api/users/register
 delete user by id: DELETE http://localhost:8443/api/users/{id}
 
 update user info:  PUT    http://localhost:8443/api/users/update/{id}
-
-
-CUSTOM ERROR RESPONSE
-{
-    "role": "user",
-    "errors": [
-        {
-            "fieldName": "error field name",
-            "message": "error message"
-        }
-    ]
-}
